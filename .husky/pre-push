@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+set -eu
+
+./scripts/git/check-branch-name.sh
+./scripts/git/validate-before-push.sh

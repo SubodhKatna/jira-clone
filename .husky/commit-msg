@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+set -eu
+
+./scripts/git/check-commit-message.sh "$1"

@@ -1,5 +1,65 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Git Workflow Rules
+
+This repository now uses Husky to enforce the solo workflow below.
+
+### Branch names
+
+Allowed branch names:
+
+- `main`
+- `feature/task-name`
+- `fix/task-name`
+- `chore/task-name`
+- `docs/task-name`
+- `refactor/task-name`
+- `test/task-name`
+
+The branch suffix must be kebab-case.
+
+### Commit messages
+
+Commit messages must:
+
+- start with an imperative verb such as `Implement`, `Fix`, `Add`, `Refactor`, or `Update`
+- stay at 72 characters or less
+- not end with a period
+
+Examples:
+
+- `Implement basic service discovery`
+- `Fix auth exception`
+- `Add rabbitmq health check`
+
+### Push validation
+
+Before every push, Husky runs:
+
+- `npm run lint`
+- `npm run typecheck`
+- `npm run build`
+
+If any of those fail, the push is blocked.
+
+### Solo developer flow
+
+```bash
+git checkout main
+git pull origin main
+git checkout -b feature/task-name
+
+# work normally
+git add .
+git commit -m "Implement basic service discovery"
+git push origin feature/task-name
+
+# after merging on GitHub
+git checkout main
+git pull origin main
+git branch -d feature/task-name
+```
+
 ## Getting Started
 
 First, run the development server:
