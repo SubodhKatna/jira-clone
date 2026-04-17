@@ -6,6 +6,7 @@ import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {usePathname} from "next/navigation";
 import {cn} from "@/lib/utils";
+import {QueryProvider} from "@/components/query-provider";
 
 interface AuthLayoutProps {
     children?: React.ReactNode;
@@ -18,7 +19,7 @@ const AuthLayout = ({children}: AuthLayoutProps) => {
 
     return (
         <main
-            className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(59,130,246,0.16),_transparent_28%),linear-gradient(180deg,_#f8fafc_0%,_#eef4ff_100%)]">
+            className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(59,130,246,0.16),transparent_28%),linear-gradient(180deg,#f8fafc_0%,#eef4ff_100%)]">
             <div className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
                 <nav
                     className="flex items-center justify-between rounded-full border border-white/70 bg-white/75 px-4 py-3 shadow-sm backdrop-blur">
@@ -54,9 +55,9 @@ const AuthLayout = ({children}: AuthLayoutProps) => {
                     <div className="grid w-full gap-6 lg:grid-cols-[1.05fr_0.95fr]">
                         {/* Desktop-only brand panel that balances the form column visually. */}
                         <section
-                            className="relative hidden min-h-[680px] overflow-hidden rounded-[2rem] bg-slate-950 p-10 text-white shadow-2xl lg:flex lg:flex-col lg:justify-between">
+                            className="relative hidden min-h-170 overflow-hidden rounded-[2rem] bg-slate-950 p-10 text-white shadow-2xl lg:flex lg:flex-col lg:justify-between">
                             <div
-                                className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(96,165,250,0.38),_transparent_28%),radial-gradient(circle_at_bottom_left,_rgba(34,197,94,0.22),_transparent_30%)]"/>
+                                className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(96,165,250,0.38),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(34,197,94,0.22),transparent_30%)]"/>
                             <div className="absolute -left-16 top-28 size-48 rounded-full border border-white/10"/>
                             <div className="absolute bottom-12 right-10 size-32 rounded-full bg-white/10 blur-3xl"/>
 
@@ -97,8 +98,10 @@ const AuthLayout = ({children}: AuthLayoutProps) => {
 
                         {/* The active auth page renders here via the route group's children. */}
                         <section className="flex items-center justify-center">
-                            <div className={cn("w-full max-w-[32rem]")}>
-                                {children}
+                            <div className={cn("w-full max-w-lg")}>
+                                <QueryProvider>
+                                    {children}
+                                </QueryProvider>
                             </div>
                         </section>
                     </div>

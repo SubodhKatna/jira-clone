@@ -10,16 +10,13 @@ import {Card, CardContent, CardHeader, CardTitle,} from "@/components/ui/card";
 import {DottedSeparator} from "@/components/dotted-seaparator";
 import {Input} from "@/components/ui/input";
 import {Button} from "@/components/ui/button";
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormMessage,
-} from "@/components/ui/form";
-import {signInSchema, type SignInFormData} from "@/features/auth/schemas/sign-in-schema";
+import {Form, FormControl, FormField, FormItem, FormMessage,} from "@/components/ui/form";
+import {type SignInFormData, signInSchema} from "@/features/auth/schemas/sign-in-schema";
+import {useLogin} from "@/features/auth/api/use-login";
+import z from "zod";
 
 export const SignInCard = () => {
+    const {mutate} = useLogin();
 
     const form = useForm<SignInFormData>({
         resolver: zodResolver(signInSchema),
@@ -30,10 +27,8 @@ export const SignInCard = () => {
         },
     });
 
-    const onSubmit = async (data: SignInFormData) => {
-        console.log(data);
-
-        // 👉 connect login API here
+    const onSubmit = (value: z.infer<typeof signInSchema>) => {
+        mutate({json: value})
     };
 
     return (
