@@ -6,7 +6,6 @@ import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {usePathname} from "next/navigation";
 import {cn} from "@/lib/utils";
-import {QueryProvider} from "@/components/query-provider";
 
 interface AuthLayoutProps {
     children?: React.ReactNode;
@@ -99,9 +98,7 @@ const AuthLayout = ({children}: AuthLayoutProps) => {
                         {/* The active auth page renders here via the route group's children. */}
                         <section className="flex items-center justify-center">
                             <div className={cn("w-full max-w-lg")}>
-                                <QueryProvider>
-                                    {children}
-                                </QueryProvider>
+                                {children}
                             </div>
                         </section>
                     </div>

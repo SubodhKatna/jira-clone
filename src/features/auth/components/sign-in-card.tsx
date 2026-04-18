@@ -14,9 +14,12 @@ import {Form, FormControl, FormField, FormItem, FormMessage,} from "@/components
 import {type SignInFormData, signInSchema} from "@/features/auth/schemas/sign-in-schema";
 import {useLogin} from "@/features/auth/api/use-login";
 import z from "zod";
+import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 export const SignInCard = () => {
-    const {mutate} = useLogin();
+    const router = useRouter();
+    const {mutateAsync, isPending} = useLogin();
 
     const form = useForm<SignInFormData>({
         resolver: zodResolver(signInSchema),
@@ -27,8 +30,9 @@ export const SignInCard = () => {
         },
     });
 
-    const onSubmit = (value: z.infer<typeof signInSchema>) => {
-        mutate({json: value})
+    const onSubmit = async (value: z.infer<typeof signInSchema>) => {
+        await mutateAsync({json: value});
+        router.push("/");
     };
 
     return (
@@ -92,16 +96,16 @@ export const SignInCard = () => {
                             type="submit"
                             size="lg"
                             className="w-full h-11 font-medium"
-                            disabled={form.formState.isSubmitting}
+                            disabled={isPending}
                         >
-                            {form.formState.isSubmitting ? "Signing in..." : "Sign In"}
+                            {isPending ? "Signing in..." : "Sign In"}
                         </Button>
 
                         <p className="text-sm text-center text-muted-foreground">
                             Don’t have an account?{" "}
-                            <span className="text-blue-600 hover:underline cursor-pointer font-medium">
-              Sign up
-            </span>
+                            <Link href="/sign-up" className="text-blue-600 hover:underline cursor-pointer font-medium">
+                                Sign up
+                            </Link>
                         </p>
 
                     </form>

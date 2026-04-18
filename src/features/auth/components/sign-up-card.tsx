@@ -23,6 +23,7 @@ import {
 import {Form, FormControl, FormDescription, FormField, FormItem, FormMessage,} from "@/components/ui/form";
 import {type SignUpFormData, signUpSchema} from "@/features/auth/schemas/sign-up-schema";
 import {useRegister} from "@/features/auth/api/use-register";
+import {useRouter} from "next/navigation";
 
 const legalContent = {
     privacy: {
@@ -86,7 +87,8 @@ const LegalDialog = ({
 };
 
 export const SignUpCard = () => {
-    const {mutate} = useRegister();
+    const router = useRouter();
+    const {mutateAsync, isPending} = useRegister();
     const form = useForm<SignUpFormData>({
         resolver: zodResolver(signUpSchema),
         // Defaults keep all fields controlled before the user starts typing.
@@ -99,9 +101,8 @@ export const SignUpCard = () => {
     });
 
     const onSubmit = async (data: SignUpFormData) => {
-        mutate({json: data})
-
-        // 👉 connect your API here
+        await mutateAsync({json: data});
+        router.push("/");
     };
 
     return (
@@ -203,9 +204,9 @@ export const SignUpCard = () => {
                             type="submit"
                             size="lg"
                             className="w-full h-11"
-                            disabled={form.formState.isSubmitting}
+                            disabled={isPending}
                         >
-                            {form.formState.isSubmitting ? "Creating..." : "Create Account"}
+                            {isPending ? "Creating..." : "Create Account"}
                         </Button>
 
                         <p className="text-sm text-center text-muted-foreground">
