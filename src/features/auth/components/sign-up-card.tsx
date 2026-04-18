@@ -20,15 +20,9 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormMessage,
-} from "@/components/ui/form";
-import {signUpSchema, type SignUpFormData} from "@/features/auth/schemas/sign-up-schema";
+import {Form, FormControl, FormDescription, FormField, FormItem, FormMessage,} from "@/components/ui/form";
+import {type SignUpFormData, signUpSchema} from "@/features/auth/schemas/sign-up-schema";
+import {useRegister} from "@/features/auth/api/use-register";
 
 const legalContent = {
     privacy: {
@@ -55,10 +49,10 @@ const legalContent = {
 
 // Small reusable dialog so legal copy stays close to the sign-up card.
 const LegalDialog = ({
-    title,
-    description,
-    sections,
-}: {
+                         title,
+                         description,
+                         sections,
+                     }: {
     title: string;
     description: string;
     sections: string[];
@@ -85,13 +79,14 @@ const LegalDialog = ({
                     ))}
                 </div>
 
-                <DialogFooter showCloseButton />
+                <DialogFooter showCloseButton/>
             </DialogContent>
         </Dialog>
     );
 };
 
 export const SignUpCard = () => {
+    const {mutate} = useRegister();
     const form = useForm<SignUpFormData>({
         resolver: zodResolver(signUpSchema),
         // Defaults keep all fields controlled before the user starts typing.
@@ -104,7 +99,7 @@ export const SignUpCard = () => {
     });
 
     const onSubmit = async (data: SignUpFormData) => {
-        console.log(data);
+        mutate({json: data})
 
         // 👉 connect your API here
     };
