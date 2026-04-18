@@ -8,4 +8,10 @@ const app = new Hono()
             return c.json({email, password});
         }
     )
+    .post('/register', zValidator("json", signInSchema), async (c) => {
+            const {name, email, password} = await c.req.json();
+            return c.json({name, email, password});
+        }
+    )
+
 export default app
