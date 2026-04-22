@@ -4,7 +4,6 @@ import {useEffect} from "react";
 import {useRouter} from "next/navigation";
 
 import {useCurrent} from "@/features/auth/api/use-current";
-import {UserButton} from "@/features/auth/components/user-button";
 
 const DashboardPage = () => {
     const router = useRouter();

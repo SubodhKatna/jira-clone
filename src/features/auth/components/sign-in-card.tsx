@@ -18,7 +18,6 @@ import Link from "next/link";
 import {useRouter} from "next/navigation";
 
 export const SignInCard = () => {
-    const router = useRouter();
     const {mutateAsync, isPending} = useLogin();
 
     const form = useForm<SignInFormData>({
