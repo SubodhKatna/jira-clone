@@ -22,10 +22,11 @@ const app = new Hono<{ Variables: SessionVariables }>()
                 password,
             );
 
+            const isProduction = process.env.NODE_ENV === "production";
             setCookie(c, AUTH_COOKIE, session.secret, {
                 path: "/",
                 httpOnly: true,
-                secure: true,
+                secure: isProduction,
                 sameSite: "strict",
                 maxAge: 60 * 60 * 24 * 30
             });
@@ -48,10 +49,11 @@ const app = new Hono<{ Variables: SessionVariables }>()
                 password,
             );
 
+            const isProduction = process.env.NODE_ENV === "production";
             setCookie(c, AUTH_COOKIE, session.secret, {
                 path: "/",
                 httpOnly: true,
-                secure: true,
+                secure: isProduction,
                 sameSite: "strict",
                 maxAge: 60 * 60 * 24 * 30
             });

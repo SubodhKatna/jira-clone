@@ -14,6 +14,7 @@ interface AuthLayoutProps {
 const AuthLayout = ({children}: AuthLayoutProps) => {
     const pathname = usePathname();
     // The header CTA flips between the two auth routes.
+    // The header CTA flips between the two auth routes.
     const isSignInPage = pathname === "/sign-in";
 
     return (

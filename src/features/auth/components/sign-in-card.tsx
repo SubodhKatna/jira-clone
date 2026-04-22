@@ -32,7 +32,6 @@ export const SignInCard = () => {
 
     const onSubmit = async (value: z.infer<typeof signInSchema>) => {
         await mutateAsync({json: value});
-        router.push("/");
     };
 
     return (
